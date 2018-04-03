@@ -1,0 +1,85 @@
+* {
+	box-sizing: border-box;
+}
+
+.analog {
+	background-color: #CCC;
+	height: 204px;
+	width: 204px;
+	border: 2px solid #8c8c8c;
+	border-radius: 102px;
+	position: absolute;
+	overflow: hidden;
+}
+
+.hand {
+	height: 200px;
+	position: absolute;
+}
+
+.hand:before {
+	content: '';
+	display: block;
+	height: 100%;
+	width: 100%;
+}
+
+.hand.hour {
+	width: 20px;
+	padding-top: 50px;
+	padding-bottom: 90px;
+	left: 90px;
+}
+
+.hand.hour:before {
+	background-color: #666;
+}
+
+.hand.minute {
+	width: 10px;
+	padding-top: 30px;
+	padding-bottom: 85px;
+	left: 95px;
+}
+
+.hand.minute:before {
+	background-color: #333;
+}
+
+.hand.second {
+	width: 4px;
+	padding-top: 10px;
+	padding-bottom: 75px;
+	left: 98px;
+}
+
+.hand.second:before {
+	background-color: #000;
+}
+
+.pin {
+	position: absolute;
+	width: 2px;
+	height: 2px;
+	background-color: #FFF;
+	border-radius: 1px;
+	top: 99px;
+	left: 99px;
+}
+
+.grad {
+	height: 200px;
+	width: 2px;
+	border-color: #8c8c8c;
+	border-style: solid;
+	position: absolute;
+	left: 99px;
+}
+
+.grad.short {
+	border-width: 3px 0;
+}
+
+.grad.long {
+	border-width: 6px 0;
+}

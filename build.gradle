@@ -1,0 +1,28 @@
+buildscript {
+    ext.kotlin_version = '1.2.31'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+group 'party.liyin.test'
+version '071'
+
+apply plugin: 'kotlin2js'
+
+repositories {
+    maven {
+        url 'https://cubesky-mvn.github.io'
+    }
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile "party.liyin:kefjs:0.7.1"
+    testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+}
