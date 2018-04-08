@@ -47,17 +47,13 @@ class BasicBinding {
         val m = date.getMinutes()
         val s = date.getSeconds()
         val ms = date.getMilliseconds()
-        Ef.bundle(object : Ef.MethodFunction {
-            override fun call() {
-                clock.setData("hour", padZero(h))
-                clock.setData("minute", padZero(m))
-                clock.setData("second", padZero(s))
-                clock.setData("h", h * 30 + m / 2 + s / 120 + ms / 1200000)
-                clock.setData("m", m * 6 + s / 10 + ms / 10000)
-                clock.setData("s", s * 6 + ms * 0.006)
-                clock.setData("ms", ms)
-            }
-        })
+        clock.setData("hour", padZero(h))
+        clock.setData("minute", padZero(m))
+        clock.setData("second", padZero(s))
+        clock.setData("h", h * 30 + m / 2 + s / 120 + ms / 1200000)
+        clock.setData("m", m * 6 + s / 10 + ms / 10000)
+        clock.setData("s", s * 6 + ms * 0.006)
+        clock.setData("ms", ms)
         window.requestAnimationFrame { getTime(clock) }
     }
 }
