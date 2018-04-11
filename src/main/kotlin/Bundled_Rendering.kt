@@ -91,13 +91,18 @@ class Bundled_Rendering {
         val m = date.getMinutes()
         val s = date.getSeconds()
         val ms = date.getMilliseconds()
-        clock.setData("hour", padZero(h))
-        clock.setData("minute", padZero(m))
-        clock.setData("second", padZero(s))
-        clock.setData("h", h * 30 + m / 2 + s / 120 + ms / 1200000)
-        clock.setData("m", m * 6 + s / 10 + ms / 10000)
-        clock.setData("s", s * 6 + ms * 0.006)
-        clock.setData("ms", ms)
+        Ef.bundle(object : Ef.BunbleFunction{
+            override fun call():Boolean {
+                clock.setData("hour", padZero(h))
+                clock.setData("minute", padZero(m))
+                clock.setData("second", padZero(s))
+                clock.setData("h", h * 30 + m / 2 + s / 120 + ms / 1200000)
+                clock.setData("m", m * 6 + s / 10 + ms / 10000)
+                clock.setData("s", s * 6 + ms * 0.006)
+                clock.setData("ms", ms)
+                return false
+            }
+        })
         window.requestAnimationFrame { getTime(clock) }
     }
 }
