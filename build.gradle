@@ -16,9 +16,6 @@ apply plugin: 'kotlin2js'
 
 repositories {
     maven {
-        url 'D:\\Development\\WorkSpace\\GitSpace\\cubesky-mvn.github.io'
-    }
-    maven {
         url 'https://cubesky-mvn.github.io'
     }
     mavenCentral()
