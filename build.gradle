@@ -23,6 +23,6 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    compile "party.liyin:kefjs:0.7.2-K2"
+    compile "party.liyin:kefjs:0.7.2-K3"
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }

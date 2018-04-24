@@ -23,7 +23,7 @@ class Mounting_Recursive {
                 state.editUserStore("ic", (state.getUserStore<Int>("ic",0)) + 1)
                 val ic = state.getUserStore<Int>("ic",0)
                 state.list("list").push(_item.newInstance().apply {
-                    this.data("count").set(ic)
+                    this.data()["count"] = ic
                     this.setMethod("addItem", addItem)
                     this.setMethod("removeItem", removeItem)
                 })

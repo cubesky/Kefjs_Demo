@@ -29,8 +29,8 @@ class BasicBinding {
 """.instanceEf()
         (0..29).forEach {
             clock.list("grads").push(Grad.newInstance().apply {
-                this.data("deg").set(data = it * 6)
-                this.data("type").set(if (it % 5 == 0) "long" else "short")
+                this.data()["deg"] = it * 6
+                this.data()["type"] = if (it % 5 == 0) "long" else "short"
             })
         }
         getTime(clock)
@@ -47,13 +47,13 @@ class BasicBinding {
         val m = date.getMinutes()
         val s = date.getSeconds()
         val ms = date.getMilliseconds()
-        clock.data("hour").set(padZero(h))
-        clock.data("minute").set(padZero(m))
-        clock.data("second").set(padZero(s))
-        clock.data("h").set(h * 30 + m / 2 + s / 120 + ms / 1200000)
-        clock.data("m").set(m * 6 + s / 10 + ms / 10000)
-        clock.data("s").set(s * 6 + ms * 0.006)
-        clock.data("ms").set(ms)
+        clock.data()["hour"]= padZero(h)
+        clock.data()["minute"] = padZero(m)
+        clock.data()["second"] = padZero(s)
+        clock.data()["h"] = h * 30 + m / 2 + s / 120 + ms / 1200000
+        clock.data()["m"] = m * 6 + s / 10 + ms / 10000
+        clock.data()["s"] = s * 6 + ms * 0.006
+        clock.data()["ms"] = ms
         window.requestAnimationFrame { getTime(clock) }
     }
 }

@@ -36,7 +36,7 @@ class EventHandling3 {
 """.instanceEf().apply {
     this.setMethod("sendMsg", object : Ef.MethodFunction2 {
         override fun call(state: Ef, value: String) {
-            state.data("msg").set(value)
+            state.data()["msg"] = value
         }
     })
 }.mount(document.body)
