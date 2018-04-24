@@ -10,11 +10,14 @@ buildscript {
 }
 
 group 'party.liyin.test'
-version '071'
+version '072'
 
 apply plugin: 'kotlin2js'
 
 repositories {
+    maven {
+        url 'D:\\Development\\WorkSpace\\GitSpace\\cubesky-mvn.github.io'
+    }
     maven {
         url 'https://cubesky-mvn.github.io'
     }
@@ -23,6 +26,6 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    compile "party.liyin:kefjs:0.7.1-K2"
+    compile "party.liyin:kefjs:0.7.2-K2"
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }

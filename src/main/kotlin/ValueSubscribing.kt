@@ -26,25 +26,25 @@ class ValueSubscribing {
     .{{reversed}}
 """.instanceEf()
         val reverse = object : Ef.MethodFunction2 {
-            override fun call(state: Ef.EfInstance, value: String) {
-                state.getKEf().setData("reversed", value.reversed())
+            override fun call(state: Ef, value: String) {
+                state.data("reversed").set(value.reversed())
             }
         }
         subscribe = object : Ef.MethodFunction1 {
-            override fun call(state: Ef.EfInstance) {
-                state.getKEf().subscribe("inputVal", reverse)
-                state.getKEf().setMethod("toggle", unsubscribe)
-                state.getKEf().setData("caption", "Unsubscribe")
+            override fun call(state: Ef) {
+                state.subscribe("inputVal", reverse)
+                state.setMethod("toggle", unsubscribe)
+                state.data("caption").set("Unsubscribe")
             }
         }
         unsubscribe = object : Ef.MethodFunction1 {
-            override fun call(state: Ef.EfInstance) {
-                state.getKEf().unsubscribe("inputVal", reverse)
-                state.getKEf().setMethod("toggle", subscribe)
-                state.getKEf().setData("caption", "Subscribe")
+            override fun call(state: Ef) {
+                state.unsubscribe("inputVal", reverse)
+                state.setMethod("toggle", subscribe)
+                state.data("caption").set("Subscribe")
             }
         }
         demo.setMethod("toggle", subscribe)
-        demo.mount(document.body)
+        demo.mount(document.body, Ef.EfOption.APPEND)
     }
 }

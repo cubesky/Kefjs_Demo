@@ -55,29 +55,29 @@ class Bundled_Rendering {
       #disabled
 """.instanceEf().apply {
             this.setMethod("inform", object : Ef.MethodFunction1 {
-                override fun call(state: Ef.EfInstance) {
+                override fun call(state: Ef) {
                     Ef.inform()
                 }
             })
             this.setMethod("exectrue", object : Ef.MethodFunction1{
-                override fun call(state: Ef.EfInstance) {
+                override fun call(state: Ef) {
                     Ef.exec(true)
                 }
             })
             this.setMethod("exec", object : Ef.MethodFunction1{
-                override fun call(state: Ef.EfInstance) {
+                override fun call(state: Ef) {
                     Ef.exec()
                 }
             })
         }
         (0..29).forEach {
-            clock.listPush("grads", Grad.newInstance().apply {
-                this.setData("deg", it * 6)
-                this.setData("type", if (it % 5 == 0) "long" else "short")
+            clock.list("grads").push(Grad.newInstance().apply {
+                this.data("deg").set(it * 6)
+                this.data("type").set(if (it % 5 == 0) "long" else "short")
             })
         }
         getTime(clock)
-        clock.mount(document.body)
+        clock.mount(document.body, Ef.EfOption.APPEND)
         Ef.exec()
     }
 
@@ -93,13 +93,13 @@ class Bundled_Rendering {
         val ms = date.getMilliseconds()
         Ef.bundle(object : Ef.BunbleFunction{
             override fun call():Boolean {
-                clock.setData("hour", padZero(h))
-                clock.setData("minute", padZero(m))
-                clock.setData("second", padZero(s))
-                clock.setData("h", h * 30 + m / 2 + s / 120 + ms / 1200000)
-                clock.setData("m", m * 6 + s / 10 + ms / 10000)
-                clock.setData("s", s * 6 + ms * 0.006)
-                clock.setData("ms", ms)
+                clock.data("hour").set(padZero(h))
+                clock.data("minute").set(padZero(m))
+                clock.data("second").set(padZero(s))
+                clock.data("h").set(h * 30 + m / 2 + s / 120 + ms / 1200000)
+                clock.data("m").set(m * 6 + s / 10 + ms / 10000)
+                clock.data("s").set(s * 6 + ms * 0.006)
+                clock.data("ms").set(ms)
                 return false
             }
         })

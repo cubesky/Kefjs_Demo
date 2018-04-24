@@ -28,13 +28,13 @@ class BasicBinding {
     >div.pin
 """.instanceEf()
         (0..29).forEach {
-            clock.listPush("grads", Grad.newInstance().apply {
-                this.setData("deg", it * 6)
-                this.setData("type", if (it % 5 == 0) "long" else "short")
+            clock.list("grads").push(Grad.newInstance().apply {
+                this.data("deg").set(data = it * 6)
+                this.data("type").set(if (it % 5 == 0) "long" else "short")
             })
         }
         getTime(clock)
-        clock.mount(document.body)
+        clock.mount(document.body, Ef.EfOption.APPEND)
         Ef.exec()
     }
     fun padZero(value : Int) : String {
@@ -47,13 +47,13 @@ class BasicBinding {
         val m = date.getMinutes()
         val s = date.getSeconds()
         val ms = date.getMilliseconds()
-        clock.setData("hour", padZero(h))
-        clock.setData("minute", padZero(m))
-        clock.setData("second", padZero(s))
-        clock.setData("h", h * 30 + m / 2 + s / 120 + ms / 1200000)
-        clock.setData("m", m * 6 + s / 10 + ms / 10000)
-        clock.setData("s", s * 6 + ms * 0.006)
-        clock.setData("ms", ms)
+        clock.data("hour").set(padZero(h))
+        clock.data("minute").set(padZero(m))
+        clock.data("second").set(padZero(s))
+        clock.data("h").set(h * 30 + m / 2 + s / 120 + ms / 1200000)
+        clock.data("m").set(m * 6 + s / 10 + ms / 10000)
+        clock.data("s").set(s * 6 + ms * 0.006)
+        clock.data("ms").set(ms)
         window.requestAnimationFrame { getTime(clock) }
     }
 }

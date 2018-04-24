@@ -10,11 +10,11 @@ class EventHandling1 {
   @click = add
   .You have clicked {{count}} time{{s}}.
 """.instanceEf().apply {
-    this.setData("count", 0)
+    this.data("count").set(0)
     this.setMethod("add", object : Ef.MethodFunction1 {
-        override fun call(state: Ef.EfInstance) {
-            state.getKEf().setData("count", (state.getKEf().getData("count") as Int) + 1)
-            if ((state.getKEf().getData("count") as Int) > 1) state.getKEf().setData("s", "s")
+        override fun call(state: Ef) {
+            state.data("count").set((state.data("count").get() as Int) + 1)
+            if ((state.getData("count") as Int) > 1) state.data("s").set("s")
         }
     })
 }.mount(document.body)

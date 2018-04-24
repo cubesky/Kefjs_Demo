@@ -19,19 +19,19 @@ class Mounting_Recursive {
   +list
         """.prepareEf()
         addItem = object : Ef.MethodFunction1 {
-            override fun call(state: Ef.EfInstance) {
-                state.getKEf().editUserStore("ic", (state.getKEf().getUserStore<Int>("ic",0)) + 1)
-                val ic = state.getKEf().getUserStore<Int>("ic",0)
-                state.getKEf().listPush("list", _item.newInstance().apply {
-                    this.setData("count", ic)
+            override fun call(state: Ef) {
+                state.editUserStore("ic", (state.getUserStore<Int>("ic",0)) + 1)
+                val ic = state.getUserStore<Int>("ic",0)
+                state.list("list").push(_item.newInstance().apply {
+                    this.data("count").set(ic)
                     this.setMethod("addItem", addItem)
                     this.setMethod("removeItem", removeItem)
                 })
             }
         }
         removeItem = object  : Ef.MethodFunction1 {
-            override fun call(state: Ef.EfInstance) {
-                state.getKEf().umount()
+            override fun call(state: Ef) {
+                state.umount()
             }
         }
         _item.newInstance().apply {

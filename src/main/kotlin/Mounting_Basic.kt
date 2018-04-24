@@ -21,10 +21,10 @@ class Mounting_Basic {
 >div
   .This is component {{count}}.
 """.prepareEf()
-        val component1 = Component.newInstance().apply { this.setData("count", 1) }
-        val component2 = Component.newInstance().apply { this.setData("count", 2) }
-        main.subMount("mp1", component1)
-        main.subMount("mp2", component2)
+        val component1 = Component.newInstance().apply { this.data("count").set(1) }
+        val component2 = Component.newInstance().apply { this.data("count").set(2) }
+        main.mount("mp1", component1)
+        main.mount("mp2", component2)
         main.mount(document.body)
         Ef.exec()
     }

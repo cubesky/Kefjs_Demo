@@ -35,8 +35,8 @@ class EventHandling3 {
     @keydown.72.74.75.76.shift.prevent = sendMsg:{{msg6}}
 """.instanceEf().apply {
     this.setMethod("sendMsg", object : Ef.MethodFunction2 {
-        override fun call(state: Ef.EfInstance, value: String) {
-            state.getKEf().setData("msg", value)
+        override fun call(state: Ef, value: String) {
+            state.data("msg").set(value)
         }
     })
 }.mount(document.body)
