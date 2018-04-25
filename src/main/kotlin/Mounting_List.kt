@@ -18,7 +18,7 @@ class Mounting_List {
 """.prepareEf()
         (0..9).forEach {
             container.list("list").push(Item.newInstance().apply {
-                this.data()["count"] = it
+                this.data["count"] = it
             })
         }
         container.mount(document.body)

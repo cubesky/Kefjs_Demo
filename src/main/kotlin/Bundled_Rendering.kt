@@ -55,25 +55,25 @@ class Bundled_Rendering {
       #disabled
 """.instanceEf().apply {
             this.setMethod("inform", object : Ef.MethodFunction1 {
-                override fun call(state: Ef) {
+                override fun invoke(state: Ef) {
                     Ef.inform()
                 }
             })
             this.setMethod("exectrue", object : Ef.MethodFunction1{
-                override fun call(state: Ef) {
+                override fun invoke(state: Ef) {
                     Ef.exec(true)
                 }
             })
             this.setMethod("exec", object : Ef.MethodFunction1{
-                override fun call(state: Ef) {
+                override fun invoke(state: Ef) {
                     Ef.exec()
                 }
             })
         }
         (0..29).forEach {
             clock.list("grads").push(Grad.newInstance().apply {
-                this.data()["deg"] = it * 6
-                this.data()["type"] = if (it % 5 == 0) "long" else "short"
+                this.data["deg"] = it * 6
+                this.data["type"] = if (it % 5 == 0) "long" else "short"
             })
         }
         getTime(clock)
@@ -92,14 +92,14 @@ class Bundled_Rendering {
         val s = date.getSeconds()
         val ms = date.getMilliseconds()
         Ef.bundle(object : Ef.BunbleFunction{
-            override fun call():Boolean {
-                clock.data()["hour"]= padZero(h)
-                clock.data()["minute"] = padZero(m)
-                clock.data()["second"] = padZero(s)
-                clock.data()["h"] = h * 30 + m / 2 + s / 120 + ms / 1200000
-                clock.data()["m"] = m * 6 + s / 10 + ms / 10000
-                clock.data()["s"] = s * 6 + ms * 0.006
-                clock.data()["ms"] = ms
+            override fun invoke():Boolean {
+                clock.data["hour"]= padZero(h)
+                clock.data["minute"] = padZero(m)
+                clock.data["second"] = padZero(s)
+                clock.data["h"] = h * 30 + m / 2 + s / 120 + ms / 1200000
+                clock.data["m"] = m * 6 + s / 10 + ms / 10000
+                clock.data["s"] = s * 6 + ms * 0.006
+                clock.data["ms"] = ms
                 return false
             }
         })

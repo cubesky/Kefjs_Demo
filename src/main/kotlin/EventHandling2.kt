@@ -17,7 +17,7 @@ class EventHandling2 {
     .>>>And then click here<<<
 """.instanceEf().apply {
     this.setMethod("showMsg", object : Ef.MethodFunction2 {
-        override fun call(state: Ef, value: String) {
+        override fun invoke(state: Ef, value: String) {
             kotlin.browser.window.alert(value)
         }
     })

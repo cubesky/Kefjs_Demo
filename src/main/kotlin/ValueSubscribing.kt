@@ -26,22 +26,22 @@ class ValueSubscribing {
     .{{reversed}}
 """.instanceEf()
         val reverse = object : Ef.MethodFunction2 {
-            override fun call(state: Ef, value: String) {
-                state.data()["reversed"] = value.reversed()
+            override fun invoke(state: Ef, value: String) {
+                state.data["reversed"] = value.reversed()
             }
         }
         subscribe = object : Ef.MethodFunction1 {
-            override fun call(state: Ef) {
+            override fun invoke(state: Ef) {
                 state.subscribe("inputVal", reverse)
                 state.setMethod("toggle", unsubscribe)
-                state.data()["caption"] = "Unsubscribe"
+                state.data["caption"] = "Unsubscribe"
             }
         }
         unsubscribe = object : Ef.MethodFunction1 {
-            override fun call(state: Ef) {
+            override fun invoke(state: Ef) {
                 state.unsubscribe("inputVal", reverse)
                 state.setMethod("toggle", subscribe)
-                state.data()["caption"] = "Subscribe"
+                state.data["caption"] = "Subscribe"
             }
         }
         demo.setMethod("toggle", subscribe)
