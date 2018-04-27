@@ -1,5 +1,6 @@
 import kefjs.Ef
 import kefjs.instanceEf
+import kefjs.kefconfig
 import kefjs.prepareEf
 import kotlin.browser.document
 import kotlin.browser.window
@@ -53,28 +54,26 @@ class Bundled_Rendering {
     >input
       %value = 1:{{input1}} 2:{{input2}} 3:{{input3}}
       #disabled
-""".instanceEf().apply {
-            this.setMethod("inform", object : Ef.MethodFunction1 {
-                override fun invoke(state: Ef) {
+""".instanceEf(kefconfig {
+            methods {
+                "inform" bind { _ ->
                     Ef.inform()
                 }
-            })
-            this.setMethod("exectrue", object : Ef.MethodFunction1{
-                override fun invoke(state: Ef) {
+                "exectrue" bind { _ ->
                     Ef.exec(true)
                 }
-            })
-            this.setMethod("exec", object : Ef.MethodFunction1{
-                override fun invoke(state: Ef) {
+                "exec" bind { _ ->
                     Ef.exec()
                 }
-            })
-        }
+            }
+        })
         (0..29).forEach {
-            clock.list("grads").push(Grad.newInstance().apply {
-                this.data["deg"] = it * 6
-                this.data["type"] = if (it % 5 == 0) "long" else "short"
-            })
+            clock.list("grads").push(Grad.newInstance(kefconfig {
+                data {
+                    "deg" setTo it*6
+                    "type" setTo if (it % 5 == 0) "long" else "short"
+                }
+            }))
         }
         getTime(clock)
         clock.mount(document.body, Ef.EfOption.APPEND)

@@ -1,5 +1,6 @@
 import kefjs.Ef
 import kefjs.instanceEf
+import kefjs.kefconfig
 import kefjs.prepareEf
 import kotlin.browser.document
 
@@ -17,9 +18,11 @@ class Mounting_List {
   .Item {{count}}
 """.prepareEf()
         (0..9).forEach {
-            container.list("list").push(Item.newInstance().apply {
-                this.data["count"] = it
-            })
+            container.list("list").push(Item.newInstance(kefconfig {
+                data {
+                    "count" setTo it
+                }
+            }))
         }
         container.mount(document.body)
         Ef.exec()

@@ -1,5 +1,6 @@
 import kefjs.Ef
 import kefjs.instanceEf
+import kefjs.kefconfig
 import kefjs.prepareEf
 import kotlin.browser.document
 
@@ -15,12 +16,12 @@ class EventHandling2 {
   >button
     @click = showMsg:The value been passed is "{{inputVal}}"
     .>>>And then click here<<<
-""".instanceEf().apply {
-    this.setMethod("showMsg", object : Ef.MethodFunction2 {
-        override fun invoke(state: Ef, value: String) {
+""".instanceEf(kefconfig {
+    methods {
+        "showMsg" bind { state, value ->
             kotlin.browser.window.alert(value)
         }
-    })
-}.mount(document.body)
+    }
+}).mount(document.body)
     }
 }

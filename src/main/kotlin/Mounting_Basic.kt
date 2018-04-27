@@ -1,5 +1,6 @@
 import kefjs.Ef
 import kefjs.instanceEf
+import kefjs.kefconfig
 import kefjs.prepareEf
 import kotlin.browser.document
 
@@ -21,8 +22,16 @@ class Mounting_Basic {
 >div
   .This is component {{count}}.
 """.prepareEf()
-        val component1 = Component.newInstance().apply { this.data["count"] = 1 }
-        val component2 = Component.newInstance().apply { this.data["count"] = 2 }
+        val component1 = Component.newInstance(kefconfig {
+            data {
+                "count" setTo 1
+            }
+        })
+        val component2 = Component.newInstance(kefconfig {
+            data {
+                "count" setTo 2
+            }
+        })
         main.mount("mp1", component1)
         main.mount("mp2", component2)
         main.mount(document.body)

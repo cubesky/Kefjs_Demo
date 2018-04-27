@@ -1,4 +1,5 @@
 import kefjs.Ef
+import kefjs.kefconfig
 import kefjs.prepareEf
 import kotlin.browser.document
 
@@ -22,11 +23,15 @@ class Mounting_Recursive {
             override fun invoke(state: Ef) {
                 state.editUserStore("ic", (state.getUserStore<Int>("ic",0)) + 1)
                 val ic = state.getUserStore<Int>("ic",0)
-                state.list("list").push(_item.newInstance().apply {
-                    this.data["count"] = ic
-                    this.setMethod("addItem", addItem)
-                    this.setMethod("removeItem", removeItem)
-                })
+                state.list("list").push(_item.newInstance(kefconfig {
+                    data {
+                        "count" setTo ic
+                    }
+                    methods {
+                        "addItem" bind addItem
+                        "removeItem" bind removeItem
+                    }
+                }))
             }
         }
         removeItem = object  : Ef.MethodFunction1 {
@@ -34,10 +39,12 @@ class Mounting_Recursive {
                 state.umount()
             }
         }
-        _item.newInstance().apply {
-            this.setMethod("addItem", addItem)
-            this.setMethod("removeItem", removeItem)
-        }.mount(document.body)
+        _item.newInstance(kefconfig {
+            methods {
+                "addItem" bind addItem
+                "removeItem" bind removeItem
+            }
+        }).mount(document.body)
 
     }
 }

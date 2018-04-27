@@ -1,5 +1,6 @@
 import kefjs.Ef
 import kefjs.instanceEf
+import kefjs.kefconfig
 import kefjs.prepareEf
 import kotlin.browser.document
 import kotlin.browser.window
@@ -28,10 +29,12 @@ class BasicBinding {
     >div.pin
 """.instanceEf()
         (0..29).forEach {
-            clock.list("grads").push(Grad.newInstance().apply {
-                this.data["deg"] = it * 6
-                this.data["type"] = if (it % 5 == 0) "long" else "short"
-            })
+            clock.list("grads").push(Grad.newInstance(kefconfig {
+                data {
+                    "deg" setTo it * 6
+                    "type" setTo if (it % 5 == 0) "long" else "short"
+                }
+            }))
         }
         getTime(clock)
         clock.mount(document.body, Ef.EfOption.APPEND)

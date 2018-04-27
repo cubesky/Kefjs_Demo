@@ -1,5 +1,6 @@
 import kefjs.Ef
 import kefjs.instanceEf
+import kefjs.kefconfig
 import kotlin.browser.document
 
 class EventHandling3 {
@@ -33,12 +34,12 @@ class EventHandling3 {
   >input
     @keydown.72.74.75.76.prevent = sendMsg:{{msg6 = "You are not supposed to type in this letter."}}
     @keydown.72.74.75.76.shift.prevent = sendMsg:{{msg6}}
-""".instanceEf().apply {
-    this.setMethod("sendMsg", object : Ef.MethodFunction2 {
-        override fun invoke(state: Ef, value: String) {
+""".instanceEf(kefconfig {
+    methods {
+        "sendMsg" bind {state, value ->
             state.data["msg"] = value
         }
-    })
-}.mount(document.body)
+    }
+}).mount(document.body)
     }
 }

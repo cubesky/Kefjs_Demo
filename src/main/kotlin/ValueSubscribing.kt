@@ -1,5 +1,6 @@
 import kefjs.Ef
 import kefjs.instanceEf
+import kefjs.kefconfig
 import kefjs.prepareEf
 import kotlin.browser.document
 
@@ -24,7 +25,11 @@ class ValueSubscribing {
   .Reversed output:
   >pre
     .{{reversed}}
-""".instanceEf()
+""".instanceEf(kefconfig {
+            methods {
+                "toggle" bind subscribe
+            }
+        })
         val reverse = object : Ef.MethodFunction2 {
             override fun invoke(state: Ef, value: String) {
                 state.data["reversed"] = value.reversed()
@@ -44,7 +49,6 @@ class ValueSubscribing {
                 state.data["caption"] = "Subscribe"
             }
         }
-        demo.setMethod("toggle", subscribe)
         demo.mount(document.body, Ef.EfOption.APPEND)
     }
 }
