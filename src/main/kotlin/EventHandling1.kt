@@ -15,7 +15,7 @@ class EventHandling1 {
         "count" setTo 0
     }
     methods {
-        "add" bind { state ->
+        "add" bind { state,_,_ ->
             state.data["count"] = (state.data["count"] as Int) + 1
             if ((state.data["count"] as Int) > 1) state.data["s"] = "s"
         }

@@ -56,13 +56,13 @@ class Bundled_Rendering {
       #disabled
 """.instanceEf(kefconfig {
             methods {
-                "inform" bind { _ ->
+                "inform" bind { _,_,_ ->
                     Ef.inform()
                 }
-                "exectrue" bind { _ ->
+                "exectrue" bind { _,_,_ ->
                     Ef.exec(true)
                 }
-                "exec" bind { _ ->
+                "exec" bind { _,_,_ ->
                     Ef.exec()
                 }
             }
@@ -90,17 +90,15 @@ class Bundled_Rendering {
         val m = date.getMinutes()
         val s = date.getSeconds()
         val ms = date.getMilliseconds()
-        Ef.bundle(object : Ef.BunbleFunction{
-            override fun invoke():Boolean {
-                clock.data["hour"]= padZero(h)
-                clock.data["minute"] = padZero(m)
-                clock.data["second"] = padZero(s)
-                clock.data["h"] = h * 30 + m / 2 + s / 120 + ms / 1200000
-                clock.data["m"] = m * 6 + s / 10 + ms / 10000
-                clock.data["s"] = s * 6 + ms * 0.006
-                clock.data["ms"] = ms
-                return false
-            }
+        Ef.bundle({
+            clock.data["hour"]= padZero(h)
+            clock.data["minute"] = padZero(m)
+            clock.data["second"] = padZero(s)
+            clock.data["h"] = h * 30 + m / 2 + s / 120 + ms / 1200000
+            clock.data["m"] = m * 6 + s / 10 + ms / 10000
+            clock.data["s"] = s * 6 + ms * 0.006
+            clock.data["ms"] = ms
+            false
         })
         window.requestAnimationFrame { getTime(clock) }
     }

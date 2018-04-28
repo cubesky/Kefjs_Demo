@@ -18,7 +18,7 @@ class EventHandling2 {
     .>>>And then click here<<<
 """.instanceEf(kefconfig {
     methods {
-        "showMsg" bind { state, value ->
+        "showMsg" bind { _, value, _ ->
             kotlin.browser.window.alert(value)
         }
     }

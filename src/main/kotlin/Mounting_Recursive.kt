@@ -1,11 +1,12 @@
 import kefjs.Ef
 import kefjs.kefconfig
 import kefjs.prepareEf
+import org.w3c.dom.events.Event
 import kotlin.browser.document
 
 class Mounting_Recursive {
-    lateinit var addItem : Ef.MethodFunction1
-    lateinit var removeItem : Ef.MethodFunction1
+    lateinit var addItem : (state: Ef, value: String, e: Event) -> Unit
+    lateinit var removeItem : (state: Ef, value: String, e: Event) -> Unit
     @JsName("main")
     fun main() {
         val _item = """
@@ -19,25 +20,21 @@ class Mounting_Recursive {
     .-
   +list
         """.prepareEf()
-        addItem = object : Ef.MethodFunction1 {
-            override fun invoke(state: Ef) {
-                state.editUserStore("ic", (state.getUserStore<Int>("ic",0)) + 1)
-                val ic = state.getUserStore<Int>("ic",0)
-                state.list("list").push(_item.newInstance(kefconfig {
-                    data {
-                        "count" setTo ic
-                    }
-                    methods {
-                        "addItem" bind addItem
-                        "removeItem" bind removeItem
-                    }
-                }))
-            }
+        addItem =  { state ,_, _ ->
+            state.editUserStore("ic", (state.getUserStore("ic",0)) + 1)
+            val ic = state.getUserStore<Int>("ic",0)
+            state.list("list").push(_item.newInstance(kefconfig {
+                data {
+                    "count" setTo ic
+                }
+                methods {
+                    "addItem" bind addItem
+                    "removeItem" bind removeItem
+                }
+            }))
         }
-        removeItem = object  : Ef.MethodFunction1 {
-            override fun invoke(state: Ef) {
-                state.umount()
-            }
+        removeItem =  { state ,_ , _  ->
+            state.umount()
         }
         _item.newInstance(kefconfig {
             methods {

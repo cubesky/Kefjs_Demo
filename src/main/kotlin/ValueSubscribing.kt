@@ -2,11 +2,23 @@ import kefjs.Ef
 import kefjs.instanceEf
 import kefjs.kefconfig
 import kefjs.prepareEf
+import org.w3c.dom.events.Event
 import kotlin.browser.document
 
 class ValueSubscribing {
-    lateinit var subscribe :Ef.MethodFunction1
-    lateinit var unsubscribe :Ef.MethodFunction1
+    val reverse =  Ef.createFunc { state ,value ,_ ->
+        state.data["reversed"] = value.reversed()
+    }
+    val subscribe: (state: Ef, value: String, e: Event) -> Unit = Ef.createFunc { state, _, _ ->
+        state.subscribe("inputVal", reverse)
+        state.setMethod("toggle", unsubscribe)
+        state.data["caption"] = "Unsubscribe"
+    }
+    val unsubscribe : (state: Ef, value: String, e: Event) -> Unit = Ef.createFunc { state, _ ,_ ->
+        state.unsubscribe("inputVal", reverse)
+        state.setMethod("toggle", subscribe)
+        state.data["caption"] = "Subscribe"
+    }
     @JsName("main")
     fun main() {
         val demo = """
@@ -30,25 +42,6 @@ class ValueSubscribing {
                 "toggle" bind subscribe
             }
         })
-        val reverse = object : Ef.MethodFunction2 {
-            override fun invoke(state: Ef, value: String) {
-                state.data["reversed"] = value.reversed()
-            }
-        }
-        subscribe = object : Ef.MethodFunction1 {
-            override fun invoke(state: Ef) {
-                state.subscribe("inputVal", reverse)
-                state.setMethod("toggle", unsubscribe)
-                state.data["caption"] = "Unsubscribe"
-            }
-        }
-        unsubscribe = object : Ef.MethodFunction1 {
-            override fun invoke(state: Ef) {
-                state.unsubscribe("inputVal", reverse)
-                state.setMethod("toggle", subscribe)
-                state.data["caption"] = "Subscribe"
-            }
-        }
         demo.mount(document.body, Ef.EfOption.APPEND)
     }
 }

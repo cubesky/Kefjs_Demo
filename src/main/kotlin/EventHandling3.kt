@@ -36,7 +36,7 @@ class EventHandling3 {
     @keydown.72.74.75.76.shift.prevent = sendMsg:{{msg6}}
 """.instanceEf(kefconfig {
     methods {
-        "sendMsg" bind {state, value ->
+        "sendMsg" bind { state, value, _ ->
             state.data["msg"] = value
         }
     }
