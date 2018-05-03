@@ -11,12 +11,12 @@ class ValueSubscribing {
     }
     val subscribe: (state: Ef, value: String, e: Event) -> Unit = Ef.createFunc { state, _, _ ->
         state.subscribe("inputVal", reverse)
-        state.setMethod("toggle", unsubscribe)
+        state.methods["toggle"] = unsubscribe
         state.data["caption"] = "Unsubscribe"
     }
     val unsubscribe : (state: Ef, value: String, e: Event) -> Unit = Ef.createFunc { state, _ ,_ ->
         state.unsubscribe("inputVal", reverse)
-        state.setMethod("toggle", subscribe)
+        state.methods["toggle"] = subscribe
         state.data["caption"] = "Subscribe"
     }
     @JsName("main")
