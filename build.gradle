@@ -10,11 +10,14 @@ buildscript {
 }
 
 group 'party.liyin.test'
-version '072'
+version '081'
 
 apply plugin: 'kotlin2js'
 
 repositories {
+    maven {
+        url 'D:\\Development\\WorkSpace\\GitSpace\\cubesky-mvn.github.io'
+    }
     maven {
         url 'https://cubesky-mvn.github.io'
     }
