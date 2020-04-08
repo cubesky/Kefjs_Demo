@@ -10,7 +10,7 @@ buildscript {
 }
 
 group 'party.liyin.test'
-version '081'
+version '0106'
 
 apply plugin: 'kotlin2js'
 
@@ -26,6 +26,6 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    compile 'party.liyin:kefjs:0.8.1-K3'
+    compile 'party.liyin:kefjs:0.10.6-K1'
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }
